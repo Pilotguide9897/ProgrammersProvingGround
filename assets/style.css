@@ -1,0 +1,58 @@
+body {
+    background-color:aliceblue;
+}
+
+.quizSpace {
+    text-align: center;
+    
+}
+
+#quizDeclaration {
+    padding: 20px;
+    font-size: 24px;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    display:flex;
+    justify-content: center;
+}
+
+#startFnt {
+    font-size: 16px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+#startBtn {
+    margin: 12px;
+    padding: 10px, 20px;
+    border-radius: 5px;
+    background-color: midnightblue;
+    color: white;
+    border: none;
+    box-sizing: border-box;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    cursor: pointer;
+    width: 90px;
+    height: 30px;
+}
+
+#buttonCenter {
+    display: flex;
+    justify-content: center;
+}
+
+#navBar {
+    font-size: 12px;
+    margin: 8px;
+    padding: 3px 10px 3px 3px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    list-style-type: none;
+    display: flex;
+    justify-content: space-between;
+}
+
+.timer {
+    
+   
+}
