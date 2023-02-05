@@ -22,7 +22,7 @@ body {
     justify-content: center;
 }
 
-#startBtn {
+#start-button {
     margin: 12px;
     padding: 10px, 20px;
     border-radius: 5px;
@@ -31,9 +31,12 @@ body {
     border: none;
     box-sizing: border-box;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    cursor: pointer;
     width: 90px;
     height: 30px;
+}
+
+#start-button:hover {
+    cursor: pointer;
 }
 
 #buttonCenter {
@@ -49,4 +52,26 @@ body {
     list-style-type: none;
     display: flex;
     justify-content: space-between;
+}
+
+.modal {
+    width:fit-content;
+    height:fit-content;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    display: none;
+}
+
+#scoreVwr:hover {
+cursor: pointer;
+}
+
+#scoreVwr {
+    border-radius: 2px;
+    background-color: midnightblue;
+    color: white;
+    border: none;
+    box-sizing: border-box;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }

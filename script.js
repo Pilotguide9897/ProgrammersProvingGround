@@ -124,12 +124,16 @@ function gameOver() {
 
 */
 
+
+
 let currentQuestionIndex = 0;
 let timeLeft = 75;
+let timerInterval;
 
 const startButton = document.querySelector('#start-button');
 const questionContainer = document.querySelector('#question-Container');
 const timerDisplay = document.querySelector('#timeRem');
+const highScores = document.querySelector('#scoreVwr');
 
 let questions = [ 
   {
@@ -141,7 +145,6 @@ let questions = [
       {text: "let variableName", correct: false}
     ]
   },
-
   {
     question: "What is the syntax for an if-else statement in JavaScript?",
     answers: [
@@ -151,7 +154,6 @@ let questions = [
       {text: "if: condition { // code to be executed }", correct: false}
     ]
   },
-  
   {
     question: "What is the difference between let and var in JavaScript?",
     answers: [
@@ -161,7 +163,6 @@ let questions = [
       {text: "var and let are the same, they are both block scoped", correct: false}
     ]
   },
-
   {
     question: "How do you select an element from the DOM using JavaScript?",
     answers: [
@@ -171,7 +172,6 @@ let questions = [
       {text: "document.querySelectorAll('elementClass')", correct: true}
     ]
   },
-
   {
     question: "What is the difference between null and undefined in JavaScript?",
     answers: [
@@ -205,15 +205,19 @@ function showQuestion() {
     document.getElementById('answer-buttons').appendChild(button);
   });
 }
-
-
+//questions.length = 5
 function selectAnswer() {
-if (currentQuestionIndex === questions.length -1) {
-  endGame();
-} else {
-  currentQuestionIndex++;
-  showQuestion();
-}
+  if (currentQuestionIndex === questions.length -1) {
+    endGame();
+  } else {
+    let selectedAnswer = event.target;
+    let isCorrect = selectedAnswer.correct;
+    if (!isCorrect) {
+      timeLeft -= 10;
+    }
+    currentQuestionIndex++;
+    showQuestion();
+  }
 }
 
 function startTimer() {
@@ -227,8 +231,38 @@ function startTimer() {
   }, 1000);
 }
 
-
 function endGame(){
+  clearInterval(timerInterval);
+  let finalScore = timeLeft;
+  questionContainer.innerHTML = `<p>Game Over</p><p>Your final score is: ${finalScore}</p>`;
+  timerDisplay.style.display = 'none';
+  const closingForm = document.getElementById('end-section');
+  closingForm.removeAttribute('style');
+  return finalScore;
+};
+
+// Retrieves the "saveScore" value from local storage 
+//and converts it to an array if it exists, or creates 
+//an empty array if it doesn't. Then, pushes an object 
+//with initials and score properties to the "saveScore" array, 
+//sorts it by the score in descending order, and retains only the top 5 elements. 
+//Finally, updates the "highScore" key in local storage 
+//with the updated "saveScore" array as a string.
+let saveScore; 
+if (localStorage.getItem('saveScore')) {
+  saveScore = JSON.parse(localStorage.getItem('saveScore'));
+} else {
+  saveScore = [];
+}
+saveScore.push({initials: 'AAA', score: finalScore});
+saveScore.sort((a, b) => b.score - a.score);
+saveScore = saveScore.slice(0, 5);
+localStorage.setItem('highScore', JSON.stringify(saveScore));
+};
+
+
+highScores.addEventListener('click', )
+
+function displayHighScores (){
 
 }
-
