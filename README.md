@@ -8,7 +8,7 @@ The deployed application may be accessed [here].
 
 ## Screenshots
 
-![Login] 
+![Login](https://github.com/Pilotguide9897/ProgrammersProvingGround/blob/main/assets/screenshots/Screenshot%202023-02-05%20at%203.48.25%20PM.png)
 
 ## Installation
 
