@@ -4,7 +4,6 @@ body {
 
 .quizSpace {
     text-align: center;
-    
 }
 
 #quizDeclaration {
@@ -50,9 +49,4 @@ body {
     list-style-type: none;
     display: flex;
     justify-content: space-between;
-}
-
-.timer {
-    
-   
 }

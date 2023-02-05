@@ -1,4 +1,4 @@
-// 
+/*
 const startButton = document.querySelector('#startBtn');
 const questionEl = document.querySelector('#questions');
 const choicesEl = document.querySelector('choices');
@@ -36,9 +36,9 @@ startButton.addEventListener("click", function() {
   }
    
 
-
+let currentQuestionIndex = 0
 // An array object with the questions for the quiz stored in it.
-const quizData = [
+let questions = [
     { //Question 1
         question: "How do you create a hyperlink in HTML?",
         //choices: ["<a>link</a>", "<link>a</link>" "<hyperlink>a</hyperlink>", <"a href=''></a>"],
@@ -96,9 +96,11 @@ const quizData = [
     //Space to add more questions if desired.
     ];
 */
+
+/*
 //let currentQuestion = 0;
 var timer;
-var timeLeft = 75;
+var timeLeft = 75; //this can be modified later
 
 startButton.addEventListener("click", start); //this event listener is working
 
@@ -120,13 +122,113 @@ function gameOver() {
     clearInterval(timer);
 }
 
+*/
+
+let currentQuestionIndex = 0;
+let timeLeft = 75;
+
+const startButton = document.querySelector('#start-button');
+const questionContainer = document.querySelector('#question-Container');
+const timerDisplay = document.querySelector('#timeRem');
+
+let questions = [ 
+  {
+    question: "How do you declare a variable in JavaScript?",
+    answers: [
+      {text: "var variableName", correct: true},
+      {text: "variable variableName", correct: false},
+      {text: "const variableName", correct: false},
+      {text: "let variableName", correct: false}
+    ]
+  },
+
+  {
+    question: "What is the syntax for an if-else statement in JavaScript?",
+    answers: [
+      {text: "if(condition) { // code to be executed }", correct: false},
+      {text: "if condition { // code to be executed }", correct: false},
+      {text: "if (condition) { // code to be executed } else { // code to be executed }", correct: true},
+      {text: "if: condition { // code to be executed }", correct: false}
+    ]
+  },
+  
+  {
+    question: "What is the difference between let and var in JavaScript?",
+    answers: [
+      {text: "var is function scoped, let is block scoped", correct: false},
+      {text: "let is block scoped, var is function scoped", correct: true},
+      {text: "var and let are the same, they are both function scoped", correct: false},
+      {text: "var and let are the same, they are both block scoped", correct: false}
+    ]
+  },
+
+  {
+    question: "How do you select an element from the DOM using JavaScript?",
+    answers: [
+      {text: "document.getElementById('elementId')", correct: true},
+      {text: "document.getElementByClass('elementClass')", correct: false},
+      {text: "document.querySelector('elementId')", correct: true},
+      {text: "document.querySelectorAll('elementClass')", correct: true}
+    ]
+  },
+
+  {
+    question: "What is the difference between null and undefined in JavaScript?",
+    answers: [
+      {text:"Null is explicitly set by the programmer, undefined means a value has not been assigned", correct: true},
+      {text:"There is no difference, they can be used interchangeably", correct: false},
+      {text:"Null means a value has not been assigned, undefined is explicitly set by the programmer", correct: false},
+      {text:"Undefined is for variables, null is for objects", correct: false}
+    ]
+  },
+];
+
+startButton.addEventListener('click', startGame);
+
+function startGame () {
+  startButton.style.display = 'none';
+  showQuestion();
+  startTimer();
+}
+
+function showQuestion() {
+  let currentQuestion = questions[currentQuestionIndex];
+  //let questionContainer = document.getElementById('question-container');
+  questionContainer.innerHTML = `
+    <p>${currentQuestion.question}</p>
+    <div id="answer-buttons"></div>
+  `;
+  currentQuestion.answers.forEach(answer => {
+    let button = document.createElement('button');
+    button.innerText = answer.text;
+    button.addEventListener('click', selectAnswer);
+    document.getElementById('answer-buttons').appendChild(button);
+  });
+}
 
 
+function selectAnswer() {
+if (currentQuestionIndex === questions.length -1) {
+  endGame();
+} else {
+  currentQuestionIndex++;
+  showQuestion();
+}
+}
+
+function startTimer() {
+  let timerInterval = setInterval(function(){
+    timeLeft--;
+    timerDisplay.innerText = 'Time left: ' + timeLeft + ' seconds';
+    if (timeLeft === 0) {
+      clearInterval(timerInterval);
+      endGame();
+    }
+  }, 1000);
+}
 
 
+function endGame(){
 
-
-
-
-
+}
 
