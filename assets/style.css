@@ -2,10 +2,18 @@ body {
     background-color:aliceblue;
 }
 
-.quizSpace {
-    text-align: center;
+/* sets styles for the view high scores and timer along the top */
+#navBar {
+    font-size: 12px;
+    margin: 8px;
+    padding: 3px 10px 3px 3px;
+   /* font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; */
+    list-style-type: none;
+    display: flex;
+    justify-content: space-between;
 }
 
+/*Sets the styles on the page heading */
 #quizDeclaration {
     padding: 20px;
     font-size: 24px;
@@ -22,6 +30,34 @@ body {
     justify-content: center;
 }
 
+.quizSpace {
+    text-align: center;
+}
+
+/* styles for the container that holds the questions and answers */
+#question-Container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* sets style for the answer buttons */
+.answer-button {
+    background-color: midnightblue;
+    color: white;
+    display: flex;
+    margin-top: 10px;
+   /* align-items: center; */
+    width: 100%;
+    text-align: center; 
+}
+
+/* sets style for the question buttons */
+#question-Container button {
+    border-radius: 2px;
+}
+
+/* start button styling */
 #start-button {
     margin: 12px;
     padding: 10px, 20px;
@@ -35,64 +71,34 @@ body {
     height: 30px;
 }
 
+/* sets the cursor on the start button */
 #start-button:hover {
     cursor: pointer;
 }
 
+/* centers the start button */
 #buttonCenter {
     display: flex;
     justify-content: center;
 }
 
-#navBar {
-    font-size: 12px;
-    margin: 8px;
-    padding: 3px 10px 3px 3px;
-   /* font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; */
-    list-style-type: none;
-    display: flex;
-    justify-content: space-between;
-}
-
-.modal {
-    width:fit-content;
-    height:fit-content;
-    display:flex;
-    align-items: center;
-    justify-content: center;
-    display: none;
-}
-
+/* sets the cursor on the header view high scores text */
 #scoreVwr:hover {
     cursor: pointer;
 }
+
 
 #scoreVwr {
     font-size: larger;
    /* font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; */
 }
 
-#question-Container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.answer-button {
-    background-color: midnightblue;
-    color: white;
-    display: flex;
-    margin-top: 10px;
-   /* align-items: center; */
-    width: 100%;
-    text-align: center;
-    
-}
-
+/* initially sets the scoreboard to hidden */
 #score-board {
     display: none;
 }
 
+/* visuals for the score board */
 .boardVisuals {
     width: 350px;
     min-height: 175px;
@@ -106,10 +112,12 @@ body {
     color:white;
 }
 
+/* moves the submit button */
 #submit-score {
     transform: translate(105%);
 }
 
+/* header for score board */
 h2 {
     text-align: center;
     margin-top: 7px;
@@ -126,9 +134,8 @@ ol li {
     margin-left: 8px;
 }
 
+/* sets a cursor when hovering over answer buttons */
 button:hover {
     cursor: pointer;
 }
-#question-Container button {
-    border-radius: 2px;
-}
+
