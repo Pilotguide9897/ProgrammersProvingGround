@@ -124,8 +124,6 @@ function gameOver() {
 
 */
 
-
-
 let currentQuestionIndex = 0;
 let timeLeft = 75;
 let timerInterval;
@@ -134,6 +132,7 @@ const startButton = document.querySelector('#start-button');
 const questionContainer = document.querySelector('#question-Container');
 const timerDisplay = document.querySelector('#timeRem');
 const highScores = document.querySelector('#scoreVwr');
+const closingMessage = document.querySelector('#startFnt');
 
 let questions = [ 
   {
@@ -193,7 +192,6 @@ function startGame () {
 
 function showQuestion() {
   let currentQuestion = questions[currentQuestionIndex];
-  //let questionContainer = document.getElementById('question-container');
   questionContainer.innerHTML = `
     <p>${currentQuestion.question}</p>
     <div id="answer-buttons"></div>
@@ -202,9 +200,15 @@ function showQuestion() {
     let button = document.createElement('button');
     button.innerText = answer.text;
     button.addEventListener('click', selectAnswer);
-    document.getElementById('answer-buttons').appendChild(button);
+    button.correct = answer.correct;
+    let answerButtons = document.getElementById('answer-buttons');
+    button.classList.add("answer-button");
+    answerButtons.appendChild(button);
+    answerButtons.appendChild(document.createElement('br'));
   });
 }
+
+
 //questions.length = 5
 function selectAnswer() {
   if (currentQuestionIndex === questions.length -1) {
@@ -234,12 +238,93 @@ function startTimer() {
 function endGame(){
   clearInterval(timerInterval);
   let finalScore = timeLeft;
-  questionContainer.innerHTML = `<p>Game Over</p><p>Your final score is: ${finalScore}</p>`;
   timerDisplay.style.display = 'none';
-  const closingForm = document.getElementById('end-section');
-  closingForm.removeAttribute('style');
-  return finalScore;
-};
+  questionContainer.innerHTML = `<p>Game Over</p><p>Your final score is: ${finalScore}</p>
+  <form>
+    <input type="text" id="initials" placeholder="Enter your Initials">
+    <button type="submit" id="submit-score">Submit</button>
+  </form>`;
+  const submitScoreButton = document.querySelector('#submit-score');
+  submitScoreButton.addEventListener('click', saveScore);
+  function saveScore(event) {
+    event.preventDefault();
+
+    var initials = document.getElementById("initials").value;
+    var userScore = initials + finalScore; 
+
+    var response = "Thank you for playing. Please refresh the page if you wish to test your knowledge again!";
+    closingMessage.textContent = response;
+
+    localStorage.setItem('initials', userScore); 
+
+  }
+  //return finalScore;
+}
+
+/*
+function showQuestion() {
+  let currentQuestion = questions[currentQuestionIndex];
+  //let questionContainer = document.getElementById('question-container');
+  questionContainer.innerHTML = `
+    <p>${currentQuestion.question}</p>
+    <div id="answer-buttons"></div>
+  `;
+  currentQuestion.answers.forEach(answer => {
+    let button = document.createElement('button');
+    button.innerText = answer.text;
+    button.addEventListener('click', selectAnswer);
+    button.correct = answer.correct;
+    document.getElementById('answer-buttons').appendChild(button);
+  });
+} */
+
+
+
+
+/*
+function saveScore(event) {
+  event.preventDefault();
+  let initials = document.querySelector('#initials').value;
+  let scoreObject = {
+    [initials]: finalScore
+  };
+  let currentScores = JSON.parse(localStorage.getItem('highScores')) || [];
+  currentScores.push(scoreObject);
+  localStorage.setItem('highScores', JSON.stringify(currentScores));
+}
+*/
+
+
+/*
+  const form = document.createElement('form');
+  const formInput = document.createElement('input');
+  const submitButton = document.createElement('button');
+  
+  formInput.setAttribute('type', 'text');
+  formInput.setAttribute('placeholder', 'Enter Initials');
+  submitButton.innerText = 'Submit';
+  submitButton.setAttribute('type', 'submit');
+  
+  form.appendChild(formInput);
+  form.appendChild(submitButton);
+  closingForm.appendChild(form);
+  
+  form.addEventListener('submit', function(event) {
+    event.preventDefault();
+    const initials = formInput.value;
+    const highScore = {
+      initials,
+      score: finalScore
+    };
+    let scores = JSON.parse(localStorage.getItem('saveScore')) || [];
+    scores.push(highScore);
+    localStorage.setItem('saveScore', JSON.stringify(scores));
+    showHighScores();
+  });
+  */
+
+
+
 
 // Retrieves the "saveScore" value from local storage 
 //and converts it to an array if it exists, or creates 
@@ -248,21 +333,20 @@ function endGame(){
 //sorts it by the score in descending order, and retains only the top 5 elements. 
 //Finally, updates the "highScore" key in local storage 
 //with the updated "saveScore" array as a string.
-let saveScore; 
-if (localStorage.getItem('saveScore')) {
-  saveScore = JSON.parse(localStorage.getItem('saveScore'));
+
+/*
+
+let highScore;
+if (localStorage.getItem('highScore')) {
+  highScore = JSON.parse(localStorage.getItem('highScore'));
 } else {
-  saveScore = [];
+  highScore = [];
 }
-saveScore.push({initials: 'AAA', score: finalScore});
-saveScore.sort((a, b) => b.score - a.score);
-saveScore = saveScore.slice(0, 5);
-localStorage.setItem('highScore', JSON.stringify(saveScore));
+highScore.push({initials: 'AAA', score: finalScore});
+highScore.sort((a, b) => b.score - a.score);
+highScore = highScore.slice(0, 5);
+localStorage.setItem('highScore', JSON.stringify(highScore));
 };
+*/
 
 
-highScores.addEventListener('click', )
-
-function displayHighScores (){
-
-}
