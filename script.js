@@ -7,6 +7,7 @@ const questionContainer = document.querySelector('#question-Container');
 const timerDisplay = document.querySelector('#timeRem');
 const highScores = document.querySelector('#scoreVwr');
 const closingMessage = document.querySelector('#startFnt');
+const scores = JSON.parse(localStorage.getItem('scores')) || [];
 
 let questions = [ 
   {
@@ -21,7 +22,7 @@ let questions = [
   {
     question: "What is the syntax for an if-else statement in JavaScript?",
     answers: [
-      {text: "if(condition) { // code to be executed }", correct: false},
+      {text: "if (condition) { // code to be executed }", correct: false},
       {text: "if condition { // code to be executed }", correct: false},
       {text: "if (condition) { // code to be executed } else { // code to be executed }", correct: true},
       {text: "if: condition { // code to be executed }", correct: false}
@@ -37,12 +38,12 @@ let questions = [
     ]
   },
   {
-    question: "How do you select an element from the DOM using JavaScript?",
+    question: "Which of the following is not a way to select an element from the DOM using JavaScript?",
     answers: [
-      {text: "document.getElementById('elementId')", correct: true},
-      {text: "document.getElementByClass('elementClass')", correct: false},
-      {text: "document.querySelector('elementId')", correct: true},
-      {text: "document.querySelectorAll('elementClass')", correct: true}
+      {text: "document.getElementById('elementId')", correct: false},
+      {text: "document.getElementBySelector('elementClass')", correct: true},
+      {text: "document.querySelector('elementId')", correct: false},
+      {text: "document.querySelectorAll('elementClass')", correct: false}
     ]
   },
   {
@@ -112,9 +113,11 @@ function endGame(){
   clearInterval(timerInterval);
   let finalScore = timeLeft;
   timerDisplay.style.display = 'none';
-  questionContainer.innerHTML = `<p>Game Over</p><p>Your final score is: ${finalScore}</p>
+  questionContainer.innerHTML = `<p>Game Over!</p><br><p>Your final score is: ${finalScore}</p>
   <form>
+    <br>
     <input type="text" id="initials" placeholder="Enter your Initials">
+    <br>
     <button type="submit" id="submit-score">Submit</button>
   </form>`;
   const submitScoreButton = document.querySelector('#submit-score');
@@ -135,7 +138,23 @@ function endGame(){
     localStorage.setItem('scores', JSON.stringify(userScores));
 
     localStorage.setItem('mostRecentScore', finalScore);
+    return userScores;
   };
 }
+
+$('#scoreVwr').on('click', function() {
+  $('#score-board').toggle();
+});
+
+function displayScores() {
+  let scoreList = document.createElement('ol');
+  scores.forEach(score => {
+    let scoreItem = document.createElement('li');
+    scoreItem.innerText = `${score.initials}: ${score.score}`;
+    scoreList.appendChild(scoreItem);
+  });
+  document.getElementById('score-board').appendChild(scoreList);
+}
+displayScores();
 
 
