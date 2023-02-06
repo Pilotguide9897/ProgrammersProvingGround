@@ -1,7 +1,9 @@
+// Declaring variables in global scope.
 let currentQuestionIndex = 0;
 let timeLeft = 75;
 let timerInterval;
 
+// Allowing access to HTML element ids.
 const startButton = document.querySelector('#start-button');
 const questionContainer = document.querySelector('#question-Container');
 const timerDisplay = document.querySelector('#timeRem');
@@ -9,6 +11,7 @@ const highScores = document.querySelector('#scoreVwr');
 const closingMessage = document.querySelector('#startFnt');
 const scores = JSON.parse(localStorage.getItem('scores')) || [];
 
+// Object to store questions in an array format.
 let questions = [ 
   {
     question: "How do you declare a variable in JavaScript?",
@@ -55,16 +58,47 @@ let questions = [
       {text:"Undefined is for variables, null is for objects", correct: false}
     ]
   },
+
+/* The following code can be used to add additional questions to aid studying.
+  {
+    question: "",
+    answers: [
+      {text:"", correct: },
+      {text:"", correct: },
+      {text:"", correct: },
+      {text:"", correct: }
+    ]
+*/
 ];
 
+// Adding an event listener to the start button.
 startButton.addEventListener('click', startGame);
 
+// A function that hides the start button and initiates the 'showQuestions' and 'startTimer' functions.
 function startGame () {
   startButton.style.display = 'none';
   showQuestion();
   startTimer();
 }
 
+// Function that starts and reveals timer.
+function startTimer() {
+  let timerInterval = setInterval(function(){
+    timeLeft--;
+    timerDisplay.innerText = 'Time left: ' + timeLeft + ' seconds';
+    if (timeLeft === 0) {
+      clearInterval(timerInterval);
+      endGame();
+    }
+  }, 1000);
+}
+
+// Displays a multiple-choice question from the questions array. 
+// Uses the DOM API to create and manipulate HTML elements, 
+// for the question text and button elements for the answer choices.
+// Retrieves the current question from the questions array using 
+// the index currentQuestionIndex. Sets the innerHTML to a string 
+// that represents the HTML for the question and answer buttons.
 function showQuestion() {
   let currentQuestion = questions[currentQuestionIndex];
   questionContainer.innerHTML = `
@@ -83,7 +117,8 @@ function showQuestion() {
   });
 }
 
-//questions.length = 5
+// Function ty cycle through question index and run 
+// the show question function.
 function selectAnswer() {
   if (currentQuestionIndex === questions.length -1) {
     endGame();
@@ -98,17 +133,9 @@ function selectAnswer() {
   }
 }
 
-function startTimer() {
-  let timerInterval = setInterval(function(){
-    timeLeft--;
-    timerDisplay.innerText = 'Time left: ' + timeLeft + ' seconds';
-    if (timeLeft === 0) {
-      clearInterval(timerInterval);
-      endGame();
-    }
-  }, 1000);
-}
-
+// Runs once the game is over. Sets score to final time and 
+// hides timer display. Shows text using inner HTMl and pops up a form to
+// record initials. 
 function endGame(){
   clearInterval(timerInterval);
   let finalScore = timeLeft;
@@ -133,19 +160,27 @@ function endGame(){
       initials: initials
     };
 
+    // Retrieves values stored in local storage
+    // parses into object. Pushes score value to userScores array
+    // sets user scores array back into local storage as a string, with the key 'scores'.
+    // Sets the finalScore value into local storage with the key 'mostRecentScore'.
+    // Returns the userScores array.
     const userScores = JSON.parse(localStorage.getItem('scores')) || [];
     userScores.push(score);
     localStorage.setItem('scores', JSON.stringify(userScores));
-
     localStorage.setItem('mostRecentScore', finalScore);
     return userScores;
   };
 }
 
+// Creates a function for toggling the display of 
+// the score board.
 $('#scoreVwr').on('click', function() {
   $('#score-board').toggle();
 });
 
+// Creates an inner HTML element that is updated
+// to reflect the values saved to local storage.
 function displayScores() {
   let scoreList = document.createElement('ol');
   scores.forEach(score => {
@@ -155,6 +190,7 @@ function displayScores() {
   });
   document.getElementById('score-board').appendChild(scoreList);
 }
+// Calls the displayScores function.
 displayScores();
 
 
