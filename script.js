@@ -1,7 +1,6 @@
 // Declaring variables in global scope.
 let currentQuestionIndex = 0;
 let timeLeft = 75;
-let timerInterval;
 
 // Allowing access to HTML element ids.
 const startButton = document.querySelector('#start-button');
@@ -10,6 +9,7 @@ const timerDisplay = document.querySelector('#timeRem');
 const highScores = document.querySelector('#scoreVwr');
 const closingMessage = document.querySelector('#startFnt');
 const scores = JSON.parse(localStorage.getItem('scores')) || [];
+const questionFeedback = document.querySelector('#feedback');
 
 // Object to store questions in an array format.
 let questions = [ 
@@ -81,13 +81,15 @@ function startGame () {
   startTimer();
 }
 
+let timerInterval;
 // Function that starts and reveals timer.
 function startTimer() {
-  let timerInterval = setInterval(function(){
+  timerInterval = setInterval(function(){
     timeLeft--;
-    timerDisplay.innerText = 'Time left: ' + timeLeft + ' seconds';
+    timerDisplay.innerText = 'Time left: ' + timeLeft;
     if (timeLeft === 0) {
       clearInterval(timerInterval);
+      alert("Time's up!");
       endGame();
     }
   }, 1000);
@@ -117,16 +119,22 @@ function showQuestion() {
   });
 }
 
-// Function ty cycle through question index and run 
+// Function t0 cycle through question index and run 
 // the show question function.
-function selectAnswer() {
+function selectAnswer(event) {
   if (currentQuestionIndex === questions.length -1) {
+    setTimeout(function() {
+      $("#feedback").fadeOut("slow");
+      }, 2000);
     endGame();
   } else {
     let selectedAnswer = event.target;
     let isCorrect = selectedAnswer.correct;
     if (!isCorrect) {
       timeLeft -= 10;
+      questionFeedback.innerHTML = `<hr /><p>Incorrect!</p>`
+    } else {
+      questionFeedback.innerHTML = `<hr /><p>Correct!</p>`
     }
     currentQuestionIndex++;
     showQuestion();
@@ -141,19 +149,28 @@ function endGame(){
   let finalScore = timeLeft;
   timerDisplay.style.display = 'none';
   questionContainer.innerHTML = `<p>Game Over!</p><br><p>Your final score is: ${finalScore}</p>
-  <form>
-    <br>
-    <input type="text" id="initials" placeholder="Enter your Initials">
-    <br>
-    <button type="submit" id="submit-score">Submit</button>
-  </form>`;
+<form>
+  <br>
+  <input type="text" id="initials" placeholder="Enter your Initials">
+  <br>
+  <button type="submit" id="submit-score">Submit</button>
+</form>
+<br>
+<button id ="refresh-button">Refresh Page</button`;
+
+// Adds a refresh button to begin again.
+const refreshButtonEl = document.querySelector('#refresh-button');
+refreshButtonEl.addEventListener('click', function(){
+  location.reload();
+});
+
+
   const submitScoreButton = document.querySelector('#submit-score');
   submitScoreButton.addEventListener('click', saveScore);
   function saveScore(event) {
     event.preventDefault();
     var response = "Thank you for playing. Please refresh the page if you wish to test your knowledge again!";
     closingMessage.textContent = response;
-
     const initials = document.getElementById("initials").value;
     const score = {
       score: finalScore,
@@ -192,5 +209,3 @@ function displayScores() {
 }
 // Calls the displayScores function.
 displayScores();
-
-
