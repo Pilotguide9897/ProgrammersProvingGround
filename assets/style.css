@@ -69,6 +69,7 @@ body {
    /* font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; */
     width: 90px;
     height: 30px;
+    border: 1px solid black;
 }
 
 /* sets the cursor on the start button */
@@ -110,6 +111,8 @@ body {
     transform: translate(-50%, -50%);
     font-size: 16px;
     color:white;
+    border: 3px solid black;
+    
 }
 
 /* moves the submit button */
@@ -139,3 +142,8 @@ button:hover {
     cursor: pointer;
 }
 
+#feedback {
+    width: 45%;
+    transform: translate(60%);
+    font-size: large;
+}
