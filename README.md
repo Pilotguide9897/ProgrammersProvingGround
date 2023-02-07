@@ -23,6 +23,8 @@ To use this application, click on the 'start quiz' button to begin the quiz. Thi
 
 Those who would like to tailor their quiz experience may clone the GitHub repo to their local site so that they may access the source code. Accessing the source code makes it easy for users to modify the number and content of the questions, the total time allowed to answer all questions, and even the time penalty for incorrect answers, thereby letting users tailor the quiz based upon their level of experience and knowledge surrounding JavaScript. In this regard, this application can be an excellent tool to study concepts in JavaScript.
 
+Please note that user scores will not be updated to be reflected on the scoreboard until after the page has been reloaded, following submission.
+
 ## Credits
 
 N/A
